@@ -1,0 +1,14 @@
+/build/
+/phpunit.xml
+/phpunit_phpstorm.xml
+/src/autoload.php
+/lib/autoload.php
+/tests/autoload.php
+/.buildpath
+/.project
+/.settings
+/.idea
+/cache.properties
+/data/**/*
+/nbproject
+
