@@ -4,11 +4,7 @@
     <!-- Target to be invoked from Jenkins for development and stage branches -->
     <target name="build" depends="prepare,lint,phploc,pdepend,phpmd,phpcpd,phpcs-ci,phpunit,phpcb">
         <property environment="env"/>
-        <antcall target="deploy"/>
     </target>
-
-    <!-- Target to be invoked from Jenkins for master branch -->
-    <target name="build-and-deploy-from-latest-tag" depends="prepare,lint,phploc,pdepend,phpmd,phpcpd,phpcs-ci,phpunit,phpcb"/>
 
     <target name="clean" description="Cleanup build artifacts">
         <delete dir="${basedir}/build/api"/>
@@ -126,12 +122,4 @@
         </exec>
     </target>
 
-    <target name="deploy">
-        <antcall target="deploy-files"/>
-        <antcall target="deploy-rpm">
-            <param name="competec.name" value="backend" />
-            <param name="branch" value="${competec.branch}" />
-            <param name="tag" value="${env.BUILD_NUMBER}" />
-        </antcall>
-    </target>
 </project>
