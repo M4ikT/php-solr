@@ -1,6 +1,7 @@
 <?php
 namespace phpsolr\Responses
 {
+    use phpsolr\Responses\json\Documents;
     use phpsolr\Responses\json\Error;
     use phpsolr\Responses\json\FacetCounts;
     use phpsolr\Responses\json\ResponseHeader;
@@ -12,7 +13,7 @@ namespace phpsolr\Responses
          */
         public function __construct($response)
         {
-            $this->setResponse(json_decode($response));
+            $this->setResponse(json_decode($response, true));
             $this->setRaw($response);
         }
 
@@ -22,7 +23,7 @@ namespace phpsolr\Responses
          */
         public function getNumFound()
         {
-            return $this->getResponseHeader()->getNumFound();
+            return $this->getResponse()['response']['numFound'];
         }
 
         /**
@@ -53,11 +54,11 @@ namespace phpsolr\Responses
         }
 
         /**
-         * @return mixed
+         * @return Documents
          */
         public function getDocuments()
         {
-            return $this->getResponse()->response->docs;
+            return new Documents($this->getResponse()['response']['docs']);
         }
 
         /**
@@ -94,7 +95,7 @@ namespace phpsolr\Responses
          */
         public function getSpellCheck()
         {
-            return $this->getResponse()->spellcheck;
+            return $this->getResponse()['spellcheck'];
         }
     }
 }

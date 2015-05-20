@@ -16,13 +16,5 @@ namespace phpsolr\Responses\json
         {
             $this->response = $response;
         }
-
-        /**
-         * @return string
-         */
-        public function getNumFound()
-        {
-            return $this->response->numFound;
-        }
     }
 }
