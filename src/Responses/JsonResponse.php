@@ -5,9 +5,12 @@ namespace phpsolr\Responses
     use phpsolr\Responses\json\Error;
     use phpsolr\Responses\json\FacetCounts;
     use phpsolr\Responses\json\ResponseHeader;
+    use phpsolr\Responses\json\SpellCheck;
 
     class JsonResponse extends AbstractResponse implements \IteratorAggregate
     {
+        private $spellCheck;
+
         /**
          * @param \stdClass $response
          */
@@ -95,7 +98,11 @@ namespace phpsolr\Responses
          */
         public function getSpellCheck()
         {
-            return $this->getResponse()['spellcheck'];
+            if ($this->spellCheck === null) {
+                return new SpellCheck($this->getResponse());
+            }
+
+            return $this->spellCheck;
         }
     }
 }
