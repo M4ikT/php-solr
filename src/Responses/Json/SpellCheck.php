@@ -22,5 +22,14 @@ namespace phpsolr\Responses\json
 
             $this->response = $spellcheck;
         }
+
+        /**
+         * @return bool
+         */
+        public function hasCollations()
+        {
+            //poc
+            return false;
+        }
     }
 }
