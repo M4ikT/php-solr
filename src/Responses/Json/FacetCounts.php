@@ -18,19 +18,43 @@ namespace phpsolr\Responses\json
         }
 
         /**
-         * @return array
+         * @param string $key
+         * @return bool
+         */
+        public function hasField($key)
+        {
+            $this->init();
+            return isset($this->fields[$key]);
+        }
+
+        /**
+         * @return FacetField[]
          */
         public function getFields()
         {
-            if (count($this->fields) > 0) {
-                return $this->fields;
-            }
-
-            foreach ($this->getResponseField()->facet_fields as $field => $values) {
-                $this->fields[] = new FacetField($field, $values);
-            }
-
+            $this->init();
             return $this->fields;
+        }
+
+        /**
+         * @param string $key
+         * @return FacetField
+         */
+        public function getField($key)
+        {
+            $this->init();
+            return $this->fields[$key];
+        }
+
+        private function init()
+        {
+            if (count($this->fields) > 0) {
+                return;
+            }
+
+            foreach ($this->getResponseField()['facet_fields'] as $field => $values) {
+                $this->fields[$field] = new FacetField($field, $values);
+            }
         }
     }
 }

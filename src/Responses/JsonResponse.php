@@ -50,7 +50,7 @@ namespace phpsolr\Responses
          */
         public function getFacetCounts()
         {
-            return new FacetCounts($this->getResponse()->facet_counts);
+            return new FacetCounts($this->getResponse()['facet_counts']);
         }
 
         /**

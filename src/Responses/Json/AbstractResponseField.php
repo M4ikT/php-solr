@@ -5,20 +5,20 @@ namespace phpsolr\Responses\json
     abstract class AbstractResponseField
     {
         /**
-         * @var \stdClass
+         * @var array
          */
         private $responseField;
 
         /**
-         * @param \stdClass $responseField
+         * @param array $responseField
          */
-        public function __construct(\stdClass $responseField)
+        public function __construct(array $responseField)
         {
             $this->responseField = $responseField;
         }
 
         /**
-         * @return \stdClass
+         * @return array
          */
         protected function getResponseField()
         {
