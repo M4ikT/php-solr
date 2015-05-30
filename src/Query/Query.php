@@ -11,6 +11,11 @@ namespace phpsolr\queries
     class Query extends Map
     {
         /**
+         * @var string
+         */
+        private $requestHandler;
+
+        /**
          * @var array
          */
         private $allowedResponseFormats = array(
@@ -68,7 +73,32 @@ namespace phpsolr\queries
          */
         public function setQueryString($query)
         {
+            if ($query !== '*:*') {
+                $query = $this->escape($query);
+            }
+
             $this->set('q', $query);
+        }
+
+        public function hasRequestHandler()
+        {
+            return $this->requestHandler !== null;
+        }
+
+        /**
+         * @param string $handler
+         */
+        public function setRequestHandler($handler)
+        {
+            $this->requestHandler = $handler;
+        }
+
+        /**
+         * @return bool
+         */
+        public function getRequestHandler()
+        {
+            return $this->requestHandler;
         }
 
         /**
@@ -222,6 +252,7 @@ namespace phpsolr\queries
 
             $qs = http_build_query($params, null, '&');
             $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
+
 
             return $qs;
         }

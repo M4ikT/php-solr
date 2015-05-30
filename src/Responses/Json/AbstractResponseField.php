@@ -24,5 +24,7 @@ namespace phpsolr\Responses\json
         {
             return $this->responseField;
         }
+
+
     }
 }

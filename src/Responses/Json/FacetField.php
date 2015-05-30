@@ -10,7 +10,7 @@ namespace phpsolr\Responses\json
         private $name;
 
         /**
-         * @var array
+         * @var Value[]
          */
         private $values;
 
@@ -25,7 +25,23 @@ namespace phpsolr\Responses\json
         }
 
         /**
-         * @return array
+         * @return string
+         */
+        public function getName()
+        {
+            return $this->name;
+        }
+
+        /**
+         * @return bool
+         */
+        public function hasValues()
+        {
+            return count($this->values) > 0;
+        }
+
+        /**
+         * @return Value[]
          */
         public function getValues()
         {

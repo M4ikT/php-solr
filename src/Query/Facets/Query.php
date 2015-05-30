@@ -20,6 +20,11 @@ namespace phpsolr\queries\facets
         private $tag;
 
         /**
+         * @var string
+         */
+        private $excludes = array();
+
+        /**
          * @param string $name
          */
         public function __construct($name)
@@ -39,12 +44,29 @@ namespace phpsolr\queries\facets
 
         /**
          * @param string $tag
-         * @return $this
          */
-        public function excludeTag($tag)
+        public function setTag($tag)
         {
             $this->tag = $tag;
+        }
+
+
+        /**
+         * @param string $name
+         * @return $this
+         */
+        public function exclude($name)
+        {
+            $this->excludes[] = $name;
             return $this;
+        }
+
+        /**
+         * @param array $excludes
+         */
+        public function excludes(array $excludes)
+        {
+            $this->excludes = array_merge($this->excludes, $excludes);
         }
 
         /**
@@ -52,14 +74,24 @@ namespace phpsolr\queries\facets
          */
         public function __toString()
         {
-            $name = $this->name;;
-            $tag = '';
+            $name = $this->name;
+            $excludes = null;
+            $tag = null;
+            $prefix = '';
 
-            if ($this->tag !== null) {
-                $tag = '{!tag=' . $this->tag . '}';
+            if (count($this->excludes) > 0) {
+                $excludes = 'ex='. implode(',', $this->excludes);
             }
 
-            return sprintf('%s%s:%s', $tag, $name, $this->value);
+            if ($this->tag) {
+                $tag = 'tag=' . $this->tag;
+            }
+
+            if ($excludes || $tag) {
+                $prefix = '{!' . $excludes . ' ' . $tag . '}';
+            }
+
+            return sprintf('%s%s:%s', $prefix, $name, $this->value);
         }
     }
 }

@@ -48,8 +48,12 @@ namespace phpsolr
                 throw new ResponseException('no query defined');
             }
 
+            if (!$this->query->hasRequestHandler()) {
+                $this->query->setRequestHandler($this->configuration->getRequestHandler());
+            }
+
             $response = $this->getCurl()->execute(
-                $this->getUri() . '/' . $this->configuration->getRequestHandler() . '?' . (string) $this->query,
+                $this->getUri() . '/' . $this->query->getRequestHandler() . '?' . (string) $this->query,
                 $this->configuration->toCurlOptions()
             );
 

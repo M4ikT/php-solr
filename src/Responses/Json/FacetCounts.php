@@ -10,6 +10,15 @@ namespace phpsolr\Responses\json
         private $fields = array();
 
         /**
+         * @param array $responseField
+         */
+        public function __construct(array $responseField)
+        {
+            parent::__construct($responseField);
+            $this->init();
+        }
+
+        /**
          * @return bool
          */
         public function hasFields()

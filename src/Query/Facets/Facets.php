@@ -76,7 +76,7 @@ namespace phpsolr\queries\facets
             }
 
             foreach ($this->queries as $query) {
-                $queries['facet.query'][] = (string) $query;
+                $queries['fq'][] = (string) $query;
             }
 
             return array_merge($fields, $queries);
