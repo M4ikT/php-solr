@@ -28,6 +28,14 @@ namespace phpsolr\queries\facets
         }
 
         /**
+         * @return string
+         */
+        public function getName()
+        {
+            return $this->name;
+        }
+
+        /**
          * @param $facetField
          * @return $this
          */
@@ -55,6 +63,18 @@ namespace phpsolr\queries\facets
         {
             $this->key = $key;
             return $this;
+        }
+
+        /**
+         * @return string
+         */
+        public function getKey()
+        {
+            if ($this->key) {
+                return $this->key;
+            }
+
+            return $this->name;
         }
 
         /**

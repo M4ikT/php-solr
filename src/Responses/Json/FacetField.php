@@ -15,12 +15,19 @@ namespace phpsolr\Responses\json
         private $values;
 
         /**
+         * @var string
+         */
+        private $key;
+
+        /**
          * @param string $name
+         * @param string $key
          * @param array $values
          */
-        public function __construct($name, array $values)
+        public function __construct($name, $key, array $values)
         {
             $this->name = $name;
+            $this->key = $key;
             $this->initValues($values);
         }
 
@@ -30,6 +37,14 @@ namespace phpsolr\Responses\json
         public function getName()
         {
             return $this->name;
+        }
+
+        /**
+         * @return string
+         */
+        public function getKey()
+        {
+            return $this->key;
         }
 
         /**

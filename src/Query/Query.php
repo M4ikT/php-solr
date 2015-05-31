@@ -253,7 +253,6 @@ namespace phpsolr\queries
             $qs = http_build_query($params, null, '&');
             $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
 
-
             return $qs;
         }
     }

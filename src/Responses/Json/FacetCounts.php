@@ -2,6 +2,8 @@
 
 namespace phpsolr\Responses\json
 {
+    use phpsolr\queries\Query;
+
     class FacetCounts extends AbstractResponseField
     {
         /**
@@ -10,11 +12,19 @@ namespace phpsolr\Responses\json
         private $fields = array();
 
         /**
-         * @param array $responseField
+         * @var Query
          */
-        public function __construct(array $responseField)
+        private $query;
+
+        /**
+         * @param array $responseField
+         * @param Query $query
+         */
+        public function __construct(array $responseField, Query $query)
         {
             parent::__construct($responseField);
+            $this->query = $query;
+
             $this->init();
         }
 
@@ -61,8 +71,16 @@ namespace phpsolr\Responses\json
                 return;
             }
 
+            $fields = $this->query->getFacets()->getFields();
+
             foreach ($this->getResponseField()['facet_fields'] as $field => $values) {
-                $this->fields[$field] = new FacetField($field, $values);
+                $key = $field;
+
+                if (isset($fields[$field])) {
+                    $key = $fields[$field]->getKey();
+                }
+
+                $this->fields[$field] = new FacetField($fields[$field]->getName(), $key, $values);
             }
         }
     }

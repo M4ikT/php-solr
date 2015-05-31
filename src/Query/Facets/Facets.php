@@ -12,6 +12,11 @@ namespace phpsolr\queries\facets
         /**
          * @var array
          */
+        private $fieldsByKeys = array();
+
+        /**
+         * @var array
+         */
         private $queries = array();
 
         /**
@@ -21,17 +26,23 @@ namespace phpsolr\queries\facets
         public function createField($name)
         {
             $field = new Field($name);
-
             $this->fields[$name] = $field;
+
             return $field;
         }
 
         /**
-         * @param array $fields
+         * @param Field[] $fields
          */
         public function setFields(array $fields)
         {
-            $this->fields = array_merge($fields, $this->fields);
+            foreach ($fields as $field) {
+                if (!$field instanceof Field) {
+                    continue;
+                }
+
+                $this->fields[$field->getName()] = $field;
+            }
         }
 
         /**
@@ -80,6 +91,27 @@ namespace phpsolr\queries\facets
             }
 
             return array_merge($fields, $queries);
+        }
+
+        /**
+         * @return Query[]
+         */
+        public function getQueries()
+        {
+            return $this->queries;
+        }
+
+        /**
+         * @return Field[]
+         */
+        public function getFields()
+        {
+
+            foreach ($this->fields as $field) {
+                $this->fieldsByKeys[$field->getKey()] = $field;
+            }
+
+            return $this->fieldsByKeys;
         }
     }
 }

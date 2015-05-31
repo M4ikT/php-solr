@@ -1,6 +1,7 @@
 <?php
 namespace phpsolr\Responses
 {
+    use phpsolr\queries\Query;
     use phpsolr\Responses\json\Documents;
     use phpsolr\Responses\json\Error;
     use phpsolr\Responses\json\FacetCounts;
@@ -10,6 +11,7 @@ namespace phpsolr\Responses
     class JsonResponse extends AbstractResponse implements \IteratorAggregate
     {
         private $spellCheck;
+        private $facetCounts;
 
         /**
          * @param \stdClass $response
@@ -53,7 +55,11 @@ namespace phpsolr\Responses
          */
         public function getFacetCounts()
         {
-            return new FacetCounts($this->getResponse()['facet_counts']);
+            if ($this->facetCounts === null) {
+                $this->facetCounts = new FacetCounts($this->getResponse()['facet_counts'], $this->getQuery());
+            }
+
+            return $this->facetCounts;
         }
 
         /**
