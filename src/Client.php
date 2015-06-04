@@ -63,8 +63,6 @@ namespace phpsolr
                     break;
             }
 
-//            echo '<pre>';var_dump(file_put_contents('/tmp/response.txt', var_export(json_decode($response->getRaw(), true), true)));die;
-
             if ($response->hasError()) {
                 throw new ResponseException((string) $response->getError());
             }

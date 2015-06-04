@@ -2,51 +2,8 @@
 
 namespace phpsolr\Responses\json
 {
-    class FacetField
+    class FacetField extends AbstractField
     {
-        /**
-         * @var string
-         */
-        private $name;
-
-        /**
-         * @var Value[]
-         */
-        private $values;
-
-        /**
-         * @var string
-         */
-        private $key;
-
-        /**
-         * @param string $name
-         * @param string $key
-         * @param array $values
-         */
-        public function __construct($name, $key, array $values)
-        {
-            $this->name = $name;
-            $this->key = $key;
-            $this->initValues($values);
-        }
-
-        /**
-         * @return string
-         */
-        public function getName()
-        {
-            return $this->name;
-        }
-
-        /**
-         * @return string
-         */
-        public function getKey()
-        {
-            return $this->key;
-        }
-
         /**
          * @return bool
          */
@@ -60,13 +17,13 @@ namespace phpsolr\Responses\json
          */
         public function getValues()
         {
-            return $this->values;
+            return parent::getValues();
         }
 
         /**
          * @param array $values
          */
-        private function initValues(array $values)
+        protected function initValues(array $values)
         {
             foreach (array_chunk($values, 2) as $splittedValues) {
                 $this->values[] = new Value($splittedValues[0], $splittedValues[1]);

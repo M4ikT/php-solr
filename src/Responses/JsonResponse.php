@@ -1,12 +1,12 @@
 <?php
 namespace phpsolr\Responses
 {
-    use phpsolr\queries\Query;
     use phpsolr\Responses\json\Documents;
     use phpsolr\Responses\json\Error;
     use phpsolr\Responses\json\FacetCounts;
     use phpsolr\Responses\json\ResponseHeader;
     use phpsolr\Responses\json\SpellCheck;
+    use phpsolr\Responses\json\Stats;
 
     class JsonResponse extends AbstractResponse implements \IteratorAggregate
     {
@@ -106,6 +106,18 @@ namespace phpsolr\Responses
         {
             if ($this->spellCheck === null) {
                 return new SpellCheck($this->getResponse());
+            }
+
+            return $this->spellCheck;
+        }
+
+        /**
+         * @return Stats
+         */
+        public function getStats()
+        {
+            if ($this->spellCheck === null) {
+                return new Stats($this->getResponse()['stats'], $this->getQuery());
             }
 
             return $this->spellCheck;

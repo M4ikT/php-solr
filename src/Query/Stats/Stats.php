@@ -10,6 +10,11 @@ namespace phpsolr\queries\stats
         private $fields = array();
 
         /**
+         * @var array
+         */
+        private $fieldsByKeys = array();
+
+        /**
          * @param string $name
          * @return Field
          */
@@ -22,11 +27,17 @@ namespace phpsolr\queries\stats
         }
 
         /**
-         * @param array $fields
+         * @param Field[] $fields
          */
         public function setFields(array $fields)
         {
-            $this->fields = array_merge($fields, $this->fields);
+            foreach ($fields as $field) {
+                if (!$field instanceof Field) {
+                    continue;
+                }
+
+                $this->fields[$field->getName()] = $field;
+            }
         }
 
         /**
@@ -49,6 +60,18 @@ namespace phpsolr\queries\stats
             }
 
             return $fields;
+        }
+
+        /**
+         * @return Field[]
+         */
+        public function getFields()
+        {
+            foreach ($this->fields as $field) {
+                $this->fieldsByKeys[$field->getKey()] = $field;
+            }
+
+            return $this->fieldsByKeys;
         }
     }
 }
