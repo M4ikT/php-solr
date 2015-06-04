@@ -31,6 +31,7 @@ namespace phpsolr\queries\stats
          */
         public function setFields(array $fields)
         {
+
             foreach ($fields as $field) {
                 if (!$field instanceof Field) {
                     continue;

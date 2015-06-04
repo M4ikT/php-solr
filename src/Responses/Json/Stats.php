@@ -74,6 +74,10 @@ namespace phpsolr\Responses\json
             $fields = $this->query->getStats()->getFields();
 
             foreach ($this->getResponseField()['stats_fields'] as $field => $values) {
+                if ($values === null) {
+                    continue;
+                }
+
                 $key = $field;
 
                 if (isset($fields[$field])) {

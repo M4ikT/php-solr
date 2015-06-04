@@ -245,14 +245,13 @@ namespace phpsolr\queries
 
             if ($this->getStats()->hasParameters()) {
                 $params = array_merge(array('stats' => 'true'), $params);
+                $params = array_merge($params, $this->getStats()->getParameters());
             }
 
-            $params = array_merge($params, $this->getStats()->getParameters());
             $params = array_merge($params, iterator_to_array($this->getDisMax()->getIterator()));
 
             $qs = http_build_query($params, null, '&');
             $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
-
             return $qs;
         }
     }
