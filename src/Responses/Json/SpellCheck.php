@@ -10,6 +10,11 @@ namespace phpsolr\Responses\json
         private $response;
 
         /**
+         * @var array
+         */
+        private $collations = array();
+
+        /**
          * @param array $response
          */
         public function __construct(array $response)
@@ -28,8 +33,29 @@ namespace phpsolr\Responses\json
          */
         public function hasCollations()
         {
-            //poc
-            return false;
+            return isset($this->response['suggestions'][1]['numFound'])
+                && $this->response['suggestions'][1]['numFound'] > 0;
+        }
+
+        /**
+         * @return CollationQuery[]
+         * @throws SpellCheckException
+         */
+        public function getCollationQueries()
+        {
+            if (!$this->hasCollations()) {
+                throw new SpellCheckException();
+            }
+
+            foreach ($this->response['suggestions'] as $value) {
+                if (!is_array($value) || !isset($value[0])) {
+                    continue;
+                }
+
+                $this->collations[] = new CollationQuery($value);
+            }
+
+            return $this->collations;
         }
     }
 }
