@@ -77,8 +77,7 @@ namespace phpsolr
          */
         private function getCurl()
         {
-            $curl = new Curl;
-            return $curl;
+            return new Curl;
         }
 
         /**
