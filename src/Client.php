@@ -40,7 +40,8 @@ namespace phpsolr
         }
 
         /**
-         * @return AbstractResponse
+         * @return JsonResponse
+         * @throws ResponseException
          */
         public function executeQuery()
         {
@@ -58,9 +59,8 @@ namespace phpsolr
             );
 
             switch ($this->query->getResponseFormat()) {
-                case 'json':
+                case 'json';
                     $response = new JsonResponse($response);
-                    break;
             }
 
             if ($response->hasError()) {
@@ -70,8 +70,6 @@ namespace phpsolr
             $this->query->setResponse($response);
 
             return $response;
-            // errorhandling
-            // "{"error":{"msg":"For input string: \"lol\"","trace":"java.lang.NumberFormatException: For input string: \"lol\"
         }
 
         /**
