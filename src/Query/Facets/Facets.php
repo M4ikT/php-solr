@@ -2,48 +2,14 @@
 
 namespace phpsolr\queries\facets
 {
-    class Facets
+    use phpsolr\queries\stats\AbstractFields;
+
+    class Facets extends AbstractFields
     {
         /**
          * @var array
          */
-        private $fields = array();
-
-        /**
-         * @var array
-         */
-        private $fieldsByKeys = array();
-
-        /**
-         * @var array
-         */
         private $queries = array();
-
-        /**
-         * @param string $name
-         * @return AbstractField
-         */
-        public function createField($name)
-        {
-            $field = new Field($name);
-            $this->fields[$name] = $field;
-
-            return $field;
-        }
-
-        /**
-         * @param Field[] $fields
-         */
-        public function setFields(array $fields)
-        {
-            foreach ($fields as $field) {
-                if (!$field instanceof Field) {
-                    continue;
-                }
-
-                $this->fields[$field->getName()] = $field;
-            }
-        }
 
         /**
          * @param string $name
@@ -70,7 +36,7 @@ namespace phpsolr\queries\facets
          */
         public function hasParameters()
         {
-            return count($this->fields) > 0
+            return parent::hasParameters()
                 || count($this->queries) > 0;
         }
 
@@ -99,19 +65,6 @@ namespace phpsolr\queries\facets
         public function getQueries()
         {
             return $this->queries;
-        }
-
-        /**
-         * @return Field[]
-         */
-        public function getFields()
-        {
-
-            foreach ($this->fields as $field) {
-                $this->fieldsByKeys[$field->getKey()] = $field;
-            }
-
-            return $this->fieldsByKeys;
         }
     }
 }
