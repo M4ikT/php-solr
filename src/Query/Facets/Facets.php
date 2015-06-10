@@ -2,8 +2,6 @@
 
 namespace phpsolr\queries\facets
 {
-    use phpsolr\queries\stats\AbstractFields;
-
     class Facets extends AbstractFields
     {
         /**
@@ -13,11 +11,11 @@ namespace phpsolr\queries\facets
 
         /**
          * @param string $name
-         * @return Query
+         * @return FacetQuery
          */
         public function createQuery($name)
         {
-            $query = new Query($name);
+            $query = new FacetQuery($name);
 
             $this->queries[$name] = $query;
             return $query;
@@ -60,7 +58,7 @@ namespace phpsolr\queries\facets
         }
 
         /**
-         * @return Query[]
+         * @return FacetQuery[]
          */
         public function getQueries()
         {

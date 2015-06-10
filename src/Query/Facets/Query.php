@@ -2,7 +2,7 @@
 
 namespace phpsolr\queries\facets
 {
-    class Query
+    class FacetQuery
     {
         /**
          * @var string

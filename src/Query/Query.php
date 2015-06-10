@@ -139,27 +139,6 @@ namespace phpsolr\queries
         }
 
         /**
-         * @param AbstractResponse $response
-         */
-        public function setResponse(AbstractResponse $response)
-        {
-            $this->response = $response;
-            $response->setQuery($this);
-        }
-
-        /**
-         * @return AbstractResponse
-         */
-        public function getResponse()
-        {
-            if (!$this->response instanceof AbstractResponse) {
-                // exception
-            }
-
-            return $this->response;
-        }
-
-        /**
          * @return mixed
          * @throws \phpsolr\MapException
          */
@@ -226,6 +205,7 @@ namespace phpsolr\queries
         }
 
         /**
+         * @todo asString
          * @return string
          */
         public function __toString()

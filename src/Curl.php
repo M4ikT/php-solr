@@ -48,15 +48,6 @@ namespace phpsolr
             return $result;
         }
 
-        public function getInfo()
-        {
-            if ($this->curlInfo === null) {
-                throw new \LogicException('Call execute first');
-            }
-
-            return $this->curlInfo;
-        }
-
         /**
          * @param string $url
          * @param string $options

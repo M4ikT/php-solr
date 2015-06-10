@@ -1,6 +1,6 @@
 <?php
 
-namespace phpsolr\queries\stats
+namespace phpsolr\queries\facets
 {
     abstract class AbstractFields
     {
@@ -32,7 +32,7 @@ namespace phpsolr\queries\stats
         public function setFields(array $fields)
         {
             foreach ($fields as $field) {
-                if (!$field instanceof Field) {
+                if (!$field instanceof AbstractField) {
                     continue;
                 }
 

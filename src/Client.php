@@ -61,13 +61,12 @@ namespace phpsolr
             switch ($this->query->getResponseFormat()) {
                 case 'json';
                     $response = new JsonResponse($response);
+                    $response->setQuery($this->query);
             }
 
             if ($response->hasError()) {
                 throw new ResponseException((string) $response->getError());
             }
-
-            $this->query->setResponse($response);
 
             return $response;
         }

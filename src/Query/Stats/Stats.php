@@ -2,6 +2,8 @@
 
 namespace phpsolr\queries\stats
 {
+    use phpsolr\queries\facets\AbstractFields;
+
     class Stats extends AbstractFields
     {
         /**

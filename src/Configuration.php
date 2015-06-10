@@ -100,6 +100,8 @@ namespace phpsolr
         }
 
         /**
+         * @todo move to Curl
+         *
          * @return array
          * @throws ConfigurationException
          */
