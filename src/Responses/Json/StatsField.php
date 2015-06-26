@@ -91,5 +91,13 @@ namespace phpsolr\Responses\json
         {
             $this->values = $values;
         }
+
+        /**
+         * @return Value[]
+         */
+        public function getValues()
+        {
+            return $this->values;
+        }
     }
 }
