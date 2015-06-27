@@ -234,6 +234,14 @@ namespace phpsolr\queries
          */
         public function asString()
         {
+            $qs = http_build_query($this->getRaw(), null, '&');
+            $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
+
+            return $qs;
+        }
+
+        public function getRaw()
+        {
             if (!$this->has('wt')) {
                 $this->set('wt', 'json');
             }
@@ -254,10 +262,7 @@ namespace phpsolr\queries
 
             $params = array_merge($params, iterator_to_array($this->getDisMax()->getIterator()));
 
-            $qs = http_build_query($params, null, '&');
-            $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
-            
-            return $qs;
+            return $params;
         }
     }
 }
