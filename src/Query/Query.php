@@ -37,7 +37,6 @@ namespace phpsolr\queries
     use phpsolr\queries\facets\Facets;
     use phpsolr\queries\stats\Stats;
     use phpsolr\QueryException;
-    use phpsolr\Responses\AbstractResponse;
 
     class Query extends Map
     {
@@ -52,11 +51,6 @@ namespace phpsolr\queries
         private $allowedResponseFormats = array(
             'json',
         );
-
-        /**
-         * @var AbstractResponse
-         */
-        private $response;
 
         /**
          * @var Stats
@@ -236,10 +230,9 @@ namespace phpsolr\queries
         }
 
         /**
-         * @todo asString
          * @return string
          */
-        public function __toString()
+        public function asString()
         {
             if (!$this->has('wt')) {
                 $this->set('wt', 'json');
@@ -263,6 +256,7 @@ namespace phpsolr\queries
 
             $qs = http_build_query($params, null, '&');
             $qs = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $qs);
+            
             return $qs;
         }
     }

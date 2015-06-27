@@ -84,7 +84,7 @@ namespace phpsolr
             }
 
             $response = $this->getCurl()->execute(
-                $this->getUri() . '/' . $this->query->getRequestHandler() . '?' . (string) $this->query,
+                $this->getUri() . '/' . $this->query->getRequestHandler() . '?' . $this->query->asString(),
                 $this->configuration->toCurlOptions()
             );
 
