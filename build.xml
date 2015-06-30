@@ -124,8 +124,6 @@
 
 
     <target name="phar" description="Create PHAR archive of php-solr and its dependencies">
-        <!--<param name="version" value="${version}"/>-->
-
         <delete dir="${basedir}/build/phar/tmp"/>
         <mkdir dir="${basedir}/build/phar/tmp"/>
 
@@ -143,18 +141,14 @@
             <fileset dir="${basedir}/build/phar/tmp">
                 <include name="**/autoload.php"/>
                 <include name="**/autoload.php.in"/>
-                <include name="**/package.xml"/>
             </fileset>
         </delete>
 
         <exec executable="phpab" failonerror="true">
-            <arg value="--var" />
-            <arg value="VERSION=${version}" />
             <arg value="--all" />
             <arg value="--alias" />
-            <arg value="phpab.phar" />
+            <arg value="php-solr.phar" />
             <arg value="--phar" />
-            <arg value="--gzip" />
             <arg value="--output" />
             <arg path="${basedir}/build/phar/php-solr-${version}.phar" />
             <arg value="--template" />

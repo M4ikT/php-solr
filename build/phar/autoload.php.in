@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 spl_autoload_register(
   function ($class)
@@ -14,14 +13,12 @@ spl_autoload_register(
       $class = strtolower($class);
 
       if (isset($classes[$class])) {
-          require 'phar://phpdox.phar/' . $classes[$class];
+          require 'phar://php-solr.phar/' . $classes[$class];
       }
   }
 );
 
 Phar::mapPhar('php-solr.phar');
 define('PHP-SOLR_PHAR', 'php-solr.phar');
-
-exit(0);
 
 __HALT_COMPILER();
