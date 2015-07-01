@@ -98,10 +98,6 @@ namespace phpsolr\queries
          */
         public function setQueryString($query)
         {
-            if ($query !== '*:*') {
-                $query = $this->escape($query);
-            }
-
             $this->set('q', $query);
         }
 
