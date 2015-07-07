@@ -106,12 +106,14 @@ namespace phpsolr\Responses\json
 
             foreach ($this->getResponseField()['facet_fields'] as $field => $values) {
                 $key = $field;
+                $name = $field;
 
                 if (isset($fields[$field])) {
                     $key = $fields[$field]->getKey();
+                    $name = $fields[$field]->getName();
                 }
 
-                $this->fields[$field] = new FacetField($fields[$field]->getName(), $key, $values);
+                $this->fields[$field] = new FacetField($name, $key, $values);
             }
         }
     }
