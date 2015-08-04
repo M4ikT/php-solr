@@ -42,7 +42,6 @@ namespace phpsolr
             'scheme' => 'http',
             'port' => '8983',
             'requestHandler' => 'select',
-            'header' => 'application/json',
             'timeOut' => '5000',
         );
 
@@ -146,7 +145,10 @@ namespace phpsolr
 
             $options[CURLOPT_TIMEOUT_MS] = $this->config['timeOut'];
             $options[CURLOPT_CONNECTTIMEOUT_MS] = $this->config['timeOut'];
-            $options[CURLOPT_HTTPHEADER] = array('Content-Type: application/json');
+
+            if (isset($this->config['header'])) {
+                $options[CURLOPT_HTTPHEADER] = $this->config['header'];
+            }
 
             return $options;
         }
