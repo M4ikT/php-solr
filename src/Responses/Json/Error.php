@@ -42,7 +42,7 @@ namespace phpsolr\Responses\json
          */
         public function getCode()
         {
-            return $this->getResponseField()->code;
+            return $this->getResponseField()['code'];
         }
 
         /**
@@ -50,7 +50,7 @@ namespace phpsolr\Responses\json
          */
         public function getMessage()
         {
-            return $this->getResponseField()->msg;
+            return $this->getResponseField()['trace'];
         }
 
         /**
