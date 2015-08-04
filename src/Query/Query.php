@@ -256,7 +256,9 @@ namespace phpsolr\queries
                 $params = array_merge($params, $this->getStats()->getParameters());
             }
 
-            $params = array_merge($params, iterator_to_array($this->getDisMax()->getIterator()));
+            if ($this->disMax) {
+                $params = array_merge($params, iterator_to_array($this->getDisMax()->getIterator()));
+            }
 
             return $params;
         }
