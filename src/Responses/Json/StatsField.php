@@ -38,19 +38,19 @@ namespace phpsolr\Responses\json
     class StatsField extends AbstractField
     {
         /**
-         * @return double
+         * @return string
          */
         public function getMin()
         {
-            return (int) $this->getValues()['min'];
+            return $this->getValues()['min'];
         }
 
         /**
-         * @return double
+         * @return string
          */
         public function getMax()
         {
-            return (int) $this->getValues()['max'];
+            return $this->getValues()['max'];
         }
 
         /**
