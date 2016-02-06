@@ -38,7 +38,7 @@ namespace phpsolr\Responses\json
     class StatsField extends AbstractField
     {
         /**
-         * @return string
+         * @return double
          */
         public function getMin()
         {
@@ -46,7 +46,7 @@ namespace phpsolr\Responses\json
         }
 
         /**
-         * @return string
+         * @return double
          */
         public function getMax()
         {
@@ -74,7 +74,7 @@ namespace phpsolr\Responses\json
                 return $min;
             }
 
-            $values = explode(' - ', $uri->getParameters()['filter'][$this->getName()][0]);
+            $values = explode(' || ', $uri->getParameters()['filter'][$this->getName()][0]);
             $selectedMin = $values[0];
 
             if (!isset($values[1])) {
@@ -101,7 +101,7 @@ namespace phpsolr\Responses\json
                 return $max;
             }
 
-            $values = explode(' - ', $uri->getParameters()['filter'][$this->getName()][0]);
+            $values = explode(' || ', $uri->getParameters()['filter'][$this->getName()][0]);
 
             if (!isset($values[1])) {
                 return $max;
