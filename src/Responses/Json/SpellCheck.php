@@ -78,8 +78,8 @@ namespace phpsolr\Responses\json
                 throw new SpellCheckException();
             }
 
-            foreach ($this->response['suggestions'] as $value) {
-                if (!is_array($value) || !isset($value[0])) {
+            foreach ($this->response['collations'] as $value) {
+                if (!is_array($value)) {
                     continue;
                 }
 
