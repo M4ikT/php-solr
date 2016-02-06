@@ -115,7 +115,7 @@ namespace phpsolr\Responses
          */
         public function hasError()
         {
-            return isset($this->getResponse()['error']);
+            return isset($this->getResponse()->error);
         }
 
         /**
@@ -128,7 +128,7 @@ namespace phpsolr\Responses
                 throw new ResponseException('no error was from solr given!');
             }
 
-            return new Error($this->getResponse()['error']);
+            return new Error($this->getResponse()->error);
         }
 
         /**
