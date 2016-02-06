@@ -45,7 +45,7 @@ namespace phpsolr\Responses\json
          */
         public function __construct(array $collation)
         {
-            $this->init($collation);
+            $this->collation = $collation;
         }
 
         /**
@@ -62,16 +62,6 @@ namespace phpsolr\Responses\json
         public function getQuery()
         {
             return $this->collation['collationQuery'];
-        }
-
-        /**
-         * @param array $collation
-         */
-        private function init(array $collation)
-        {
-            for ($i = 0; $i < count($collation); $i++) {
-                $this->collation[$collation[$i]] = $collation[$i += 1];
-            }
         }
     }
 }
