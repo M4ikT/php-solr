@@ -137,7 +137,7 @@ namespace phpsolr\queries
          */
         public function escape($value)
         {
-            $pattern = '/(\+|-|&&|\|\||!|\(|\)|\{|}|\[|]|\^|"|~|\*|\?|:|\\\)/';
+            $pattern = '/(\+|-|&&|\|\||!|\(|\)|\{|}|\[|]|\^|"|~|\*|\?|:|\\\|TO|AND|NOT|OR)/';
             $replace = '\\\$1';
 
             return preg_replace($pattern, $replace, $value);
@@ -256,7 +256,7 @@ namespace phpsolr\queries
                 $params = array_merge($params, $this->getStats()->getParameters());
             }
 
-            if ($this->disMax) {
+            if ($this->disMax instanceof Dismax) {
                 $params = array_merge($params, iterator_to_array($this->getDisMax()->getIterator()));
             }
 
